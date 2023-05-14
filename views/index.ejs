@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real time chat</title>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script defer src="chat.js"></script>
+
+    <style>
+        .chat{
+            background-color: rgb(223, 180, 180);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 90vh;
+            gap: 1vh;
+        }
+        .h1{
+            background-color: rgb(170, 212, 187);
+            width: 100vh;
+            display: flex;
+            justify-content: center;
+
+        }
+        #username{
+            display: flex;
+            border: 2px solid black;
+            height: 5vh;
+            width: 30vw;
+
+        }
+        #message{
+            display: flex;
+            border: 2px solid black;
+            height: 5vh;
+            width: 30vw;
+
+            
+        }
+        #change_message{
+            display: flex;
+            align-items:center;
+            justify-content:center;
+            border: 2px solid black;
+            height: 5vh;
+            width: 10vw;
+
+
+        }
+        #change_username{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid black;
+            height: 5vh;
+            width: 10vw;
+
+        }
+        #feedback{
+            background-color: rgb(133, 205, 205);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 2px;
+            overflow-y:auto;
+            width:100vh;
+        }
+       
+
+    </style>
+
+</head>
+<body>
+    <div class="chat">
+     <h1 class="h1">TP chat</h1>
+     <input type ="text" id="username"/>
+     <button type="submit" id="change_username">Change username</button>
+
+     <div id="feedback"></div>
+
+     <input type="text" id="message"/>
+     <button type="submit" id="change_message">Send message</button>
+    </div>
+
+
+
+</body>
+
+</html>

@@ -1,35 +1,45 @@
-$(document).ready(function(){
+$(document).ready(function () {
+    const socket = io.connect('http://localhost:3000');
 
-    const socket = io.connect('http://localhost:3000')
+    const usernameInput = $("#username");
+    const changeUsernameButton = $("#change_username");
+    const feedbackDiv = $("#feedback");
+    const messageInput = $("#message");
+    const changeMessageButton = $("#change_message");
 
- var username = $("#username");
- var change_username = $("#change_username");
- var feedback = $("#feedback");
- var message = $("#message");
- var change_message = $("#change_message");
+    changeMessageButton.click(function () {
+        const message = messageInput.val().trim();
+        if (message !== '') {
+            socket.emit('new_message', { message });
+            messageInput.val('');
+        }
+    });
 
-change_message.click(function(){
-    socket.emit('new_message',{message:message.val()})
-})
+    socket.on('new_message', function (data) {
+        const messageContainerClass = (data.username === 'You') ? 'sent-message' : 'received-message';
+        const messageContainer = $('<div>').addClass('message-container ' + messageContainerClass);
+        const usernameElement = $('<span>').addClass('message-username').text(data.username + ':');
+        const messageContent = $('<div>').addClass('message-content').html('<p>' + data.message + '</p>');
+    
+        messageContainer.append(usernameElement, messageContent);
+        feedbackDiv.append(messageContainer);
+    
+        feedbackDiv.scrollTop(feedbackDiv.prop('scrollHeight'));
+    });
+    
 
-socket.on('new_message',(data)=>{
-    message.val('');
-    feedback.append('<p>'+data.username + ":" + data.message + '</p>')
-})
+    changeUsernameButton.click(function () {
+        const username = usernameInput.val().trim();
+        if (username !== '') {
+            socket.emit('change_username', { username });
+        }
+    });
 
-change_username.click(function(){
-    socket.emit('change_username', {
-        username:username.val()
-    })
-})
+    messageInput.keypress(function () {
+        socket.emit('typing');
+    });
 
-message.bind('keypress',()=>{
-    socket.emit('typing')
-})
-
-socket.on('typing',(data)=>{
-    feedback.html('<p><i>'+ data.username + ' is typing a message...' + '<i></p>')
-})
-
-
-})
+    socket.on('typing', function (data) {
+        feedbackDiv.html('<p><i>' + data.username + ' is typing a message...</i></p>');
+    });
+});

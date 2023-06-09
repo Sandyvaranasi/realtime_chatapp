@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Real-time Chat</title>
-    <style>
-        body {
+body {
 margin: 0;
 padding: 0;
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -142,27 +137,3 @@ color: #333;
 .received-message .message-content {
 background-color: #e0e0e0;
 }
-
-    </style>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="chat.js"></script>
-</head>
-<body>
-    <div class="chat">
-        <h1 class="title">TP Chat</h1>
-        <div class="input-section">
-            <input type="text" id="username" placeholder="Enter your username">
-            <button id="change_username">Change username</button>
-        </div>
-
-        <div id="feedback"></div>
-
-        <div class="input-section">
-            <input type="text" id="message" placeholder="Type your message">
-            <button id="change_message">Send message</button>
-        </div>
-    </div>
-</body>
-</html>
